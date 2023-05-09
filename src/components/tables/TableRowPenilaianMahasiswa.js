@@ -15,15 +15,15 @@ export default function TableRowPenilaianMahasiswa({
 
       {studentData.ariaLabelScore.map((score) => {
         return (
-          <div className='select-wrapper'>
+          <div className='select-wrapper' key={studentData.name + "-" + score}>
             <select
               className='select-student-score'
-              defaultValue={1}
+              defaultValue={0}
               aria-label={score}
               name={studentData.name}
               onChange={handleSelectChangeValue}
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scoreValue) => {
+              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((scoreValue) => {
                 return (
                   <option value={scoreValue} key={scoreValue}>
                     {scoreValue}

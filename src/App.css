@@ -32,6 +32,7 @@
 /* Page */
 .container-aplikasi-penilaian-mahasiswa {
   max-width: 800px;
+  gap: 8px;
 }
 
 .container-aplikasi-penilaian-mahasiswa h1 {
@@ -89,4 +90,5 @@
   padding: 2px 8px;
   font-size: 16px;
   align-self: flex-end;
+  cursor: pointer;
 }

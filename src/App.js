@@ -8,6 +8,7 @@ import TableHeadPenilaianMahasiswa from "./components/tables/TableHeadPenilaianM
 
 function App() {
   const [studentScore, setStudentScore] = useState({})
+  const [showOutput, setShowOutput] = useState(false)
 
   const handleSelectChangeValue = (event) => {
     const { ariaLabel, name, value } = event.target
@@ -22,7 +23,7 @@ function App() {
   }
 
   const handleSave = () => {
-    console.log(studentScore)
+    setShowOutput(true)
   }
 
   return (
@@ -42,10 +43,20 @@ function App() {
           )
         })}
 
-        <button onClick={handleSave} className='save-button'>
-          Simpan
-        </button>
+        {!showOutput && (
+          <button onClick={handleSave} className='save-button'>
+            Simpan
+          </button>
+        )}
       </div>
+      {showOutput && (
+        <div className='flex-col flex-center'>
+          {JSON.stringify(studentScore, null, 2)}
+          <button onClick={() => setShowOutput(false)} className='save-button'>
+            Hide Output
+          </button>
+        </div>
+      )}
     </div>
   )
 }
