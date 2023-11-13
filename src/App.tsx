@@ -2,7 +2,7 @@ import React from "react"
 import "./styles/global.css"
 
 import { mockTablePenilaianMahasiswa } from "./common/mockData"
-import { ValueAspekPenilaian } from "./types"
+import useAppPage from "./App.hooks"
 
 const TableRowPenilaianMahasiswa = React.lazy(
   () => import("./components/tables/TableRowPenilaianMahasiswa")
@@ -12,28 +12,11 @@ const TableHeadPenilaianMahasiswa = React.lazy(
 )
 
 function App() {
-  const [studentScore, setStudentScore] = React.useState<ValueAspekPenilaian>(
-    {}
-  )
-  const [showOutput, setShowOutput] = React.useState<boolean>(false)
-
-  const handleSelectChangeValue = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { ariaLabel, name, value } = event.target
-
-    setStudentScore({
-      ...studentScore,
-      [ariaLabel!]: {
-        ...studentScore[ariaLabel!],
-        [name]: value,
-      },
-    })
-  }
-
-  const handleSave = () => {
-    setShowOutput(true)
-  }
+  const {
+    state: appPageState,
+    setState: appPageSetState,
+    action: appPageAction,
+  } = useAppPage()
 
   return (
     <div className='App flex-col flex-center'>
@@ -47,21 +30,24 @@ function App() {
             <TableRowPenilaianMahasiswa
               key={data.name}
               studentData={data}
-              handleSelectChangeValue={handleSelectChangeValue}
+              handleSelectChangeValue={appPageSetState.handleSelectChangeValue}
             />
           )
         })}
 
-        {!showOutput && (
-          <button onClick={handleSave} className='save-button'>
+        {!appPageState.showOutput && (
+          <button onClick={appPageAction.handleSave} className='save-button'>
             Simpan
           </button>
         )}
       </div>
-      {showOutput && (
+      {appPageState.showOutput && (
         <div className='flex-col flex-center'>
-          {JSON.stringify(studentScore, null, 2)}
-          <button onClick={() => setShowOutput(false)} className='save-button'>
+          {JSON.stringify(appPageState.studentScore, null, 2)}
+          <button
+            onClick={() => appPageSetState.setShowOutput(false)}
+            className='save-button'
+          >
             Hide Output
           </button>
         </div>
