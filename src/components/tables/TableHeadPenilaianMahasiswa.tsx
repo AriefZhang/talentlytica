@@ -1,4 +1,3 @@
-import React from "react"
 import { titleAspekPenilaian } from "../../common/mockData"
 
 export default function TableHeadPenilaianMahasiswa() {
